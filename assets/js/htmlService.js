@@ -15,6 +15,6 @@ export default class HtmlService {
       event.preventDefault();
       this.logger(form.item.value);
       form.reset();
-    })
+    });
   }
 }
