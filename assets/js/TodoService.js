@@ -41,6 +41,10 @@ export default class TodoService {
     this.initializeDb();
   }
 
+  logger(...message) {
+    console.log("[Todo Service] ", ...message);
+  }
+
   initializeDb() {
     db = new Dexie("todoDB");
 
@@ -63,7 +67,15 @@ export default class TodoService {
     return db.tasks.toArray();
   }
 
-  logger(...message) {
-    console.log("[Todo Service] ", ...message);
+  get(id) {
+    return db.tasks.get(id);
+  }
+
+  save(task) {
+    return db.tasks.put(task);
+  }
+
+  delete(id) {
+    return db.tasks.delete(id);
   }
 }
