@@ -1,8 +1,10 @@
 export default class HtmlService {
 
-  constructor() {
+  constructor(todoService) {
     this.logger("Html service instantiated");
+    this.todoService = todoService;
     this.bindingFormEvent();
+    this.listTasks();
   }
 
   logger(...message) {
@@ -16,5 +18,10 @@ export default class HtmlService {
       this.logger(form.item.value);
       form.reset();
     });
+  }
+
+  async listTasks() {
+    const tasks = await this.todoService.getAll();
+    this.logger(tasks);
   }
 }

@@ -1,16 +1,21 @@
 import HtmlService from './HtmlService.js';
-import './TodoService.js';
+import TodoService from './TodoService.js';
 
 class App {
 
   constructor() {
     this.logger("Initialized!")
     this.registerServiceWorker();
-    new HtmlService();
+    this.start();
   }
 
   logger(...message) {
     console.log("[App] ", ...message);
+  }
+
+  start() {
+    const todoservice = new TodoService();
+    new HtmlService(todoservice);
   }
 
   registerServiceWorker() {
