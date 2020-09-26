@@ -32,13 +32,13 @@ async function cacheStaticAssets() {
 }
 
 self.addEventListener('install', event => {
-  console.log('[Service Worker] Installing Service Worker...', event);
+  console.log('[Service Worker] Installing Service Worker...');
   event.waitUntil(cacheStaticAssets());
   self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
-  console.log('[Service Worker] Activating Service Worker...', event);
+  console.log('[Service Worker] Activating Service Worker...');
   event.waitUntil(cacheCleanup());
   return self.clients.claim();
 });
@@ -63,6 +63,5 @@ async function cacheFirst(request) {
 }
 
 self.addEventListener('fetch', event => {
-  // console.log('[Service Worker] Fetch event: ' + event.request.url);
   event.respondWith(networkFirst(event.request));
 });
