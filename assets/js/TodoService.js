@@ -51,10 +51,10 @@ export default class TodoService {
     db.on('populate', async () => {
       this.logger("Creating data only once");
       await db.tasks.bulkPut([
-        { description: "learn JavaScript" },
-        { description: "learn TypeScript" },
-        { description: "learn PWA" },
-        { description: "learn Java" },
+        { description: "learn JavaScript", done: true },
+        { description: "learn TypeScript", done: false },
+        { description: "learn PWA", done: false },
+        { description: "learn Java", done: true },
       ]);
     });
   }
