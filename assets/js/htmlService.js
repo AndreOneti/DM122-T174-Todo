@@ -39,11 +39,21 @@ export default class HtmlService {
     this.todoService.save(task);
   }
 
+  getId(li) {
+    return +li.getAttribute("data-item-id");
+  }
+
   toggleTask(li) {
-    const taskId = +li.getAttribute("data-item-id");
+    const taskId = this.getId(li);
     li.classList.toggle(DONE);
     const isDone = li.classList.contains(DONE);
     this.saveTask(taskId, isDone);
+  }
+
+  async deleteTask(li) {
+    const taskId = this.getId(li);
+    await this.todoService.delete(taskId);
+    li.remove();
   }
 
   addToHtmlList(task) {
@@ -58,6 +68,10 @@ export default class HtmlService {
     span.textContent = task.description;
 
     button.textContent = "X";
+    button.addEventListener('click', event => {
+      event.stopPropagation();
+      this.deleteTask(li);
+    });
 
     if (task.done) {
       li.classList.add(DONE);
